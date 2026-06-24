@@ -353,6 +353,62 @@
   }
 
   :focus-visible{outline:2px solid var(--terracotta); outline-offset:3px;}
+
+  /* ---------- LIGHTBOX ---------- */
+  .lb-overlay{
+    display:none; position:fixed; inset:0; z-index:1000;
+    background:rgba(46,43,39,.92); backdrop-filter:blur(6px);
+    align-items:center; justify-content:center; padding:24px;
+    cursor:zoom-out;
+  }
+  .lb-overlay.open{display:flex;}
+  .lb-content{
+    max-width:90vw; max-height:90vh;
+    display:flex; flex-direction:column; align-items:center; gap:14px;
+    cursor:default;
+  }
+  .lb-content img{
+    max-width:90vw; max-height:80vh;
+    object-fit:contain; border-radius:8px;
+  }
+  .lb-content iframe{
+    width:min(860px, 90vw); height:min(480px, 50vw);
+    border-radius:8px; border:none;
+  }
+  .lb-caption{
+    font-family:'Space Mono', monospace; font-size:.78rem;
+    color:rgba(255,255,255,.65); text-align:center;
+  }
+  .lb-close{
+    position:fixed; top:20px; right:28px;
+    font-family:'Space Mono', monospace; font-size:1.5rem;
+    color:rgba(255,255,255,.7); cursor:pointer; line-height:1;
+    background:none; border:none; padding:4px;
+    transition:color .2s;
+  }
+  .lb-close:hover{color:#fff;}
+
+  /* clickable images/videos */
+  .project-gallery figure,
+  .job-gallery figure{cursor:zoom-in;}
+
+  /* video embed figure */
+  .vid-figure{
+    grid-column:span 2;
+    margin:0; background:var(--cream); border:1px solid rgba(46,43,39,.08);
+    border-radius:12px; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .vid-frame{
+    position:relative; width:100%; aspect-ratio:16/9;
+    background:#000; border-radius:12px 12px 0 0; overflow:hidden;
+  }
+  .vid-frame iframe{width:100%; height:100%; border:none;}
+  .vid-figure figcaption{
+    font-family:'Space Mono', monospace; font-size:.7rem;
+    color:var(--grey); padding:10px 12px; line-height:1.4;
+    border-top:1px solid rgba(46,43,39,.06);
+  }
 </style>
 </head>
 <body>
@@ -386,15 +442,14 @@
   <div class="section-inner">
     <div class="section-head">
       <div class="sub">À propos</div>
-      <h2>Curieux, rigoureux, et plutôt du genre à mettre les mains dans le cambouis</h2>
+      <h2>Curieux, rigoureux et autonome</h2>
     </div>
     <div class="apropos-grid">
       <div class="apropos-text">
         <p>
           J'aborde les défis techniques avec méthode et esprit d'initiative. Mon parcours m'a appris
           à être aussi performant en recherche autonome qu'au sein de projets d'équipe, où j'apprécie
-          la collaboration et l'échange — entre laboratoire de caractérisation, ligne de production
-          et chantiers Lean.
+          la collaboration et l'échange.
         </p>
         <p>
           Ce portfolio rassemble quelques projets réalisés durant mon BUT Science et Génie des
@@ -533,6 +588,13 @@
         <figure>
           <div class="img-frame"><img src="assets/tapis-rebond.jpg" alt="Test de rebond d'une balle de tennis sur le tapis"></div>
           <figcaption>Test final : rebond d'une balle de tennis</figcaption>
+        </figure>
+        <figure class="vid-figure">
+          <div class="vid-frame">
+            <video src="assets/tapis-video.mp4" muted loop playsinline
+              controls style="width:100%;height:100%;object-fit:contain;background:#000;"></video>
+          </div>
+          <figcaption>▶ Vidéo — Test de rebond de la balle de tennis</figcaption>
         </figure>
       </div>
     </div>
@@ -744,6 +806,68 @@
 <footer>
   Quentin Granvaud — Portfolio · Science et Génie des Matériaux
 </footer>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lb-close" aria-label="Fermer">&times;</button>
+  <div class="lb-content" id="lb-content"></div>
+</div>
+
+<script>
+  const overlay = document.getElementById('lightbox');
+  const content = document.getElementById('lb-content');
+  const closeBtn = document.getElementById('lb-close');
+
+  function openLightbox(src, caption, type){
+    content.innerHTML = '';
+    if(type === 'img'){
+      const img = document.createElement('img');
+      img.src = src; img.alt = caption;
+      content.appendChild(img);
+    } else if(type === 'video'){
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + src + '?autoplay=1';
+      iframe.allow = 'autoplay; fullscreen';
+      content.appendChild(iframe);
+    }
+    if(caption){
+      const cap = document.createElement('div');
+      cap.className = 'lb-caption';
+      cap.textContent = caption;
+      content.appendChild(cap);
+    }
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(){
+    overlay.classList.remove('open');
+    content.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+  // Make all gallery images clickable
+  document.querySelectorAll('.project-gallery figure:not(.vid-figure), .job-gallery figure').forEach(fig => {
+    const img = fig.querySelector('img');
+    const cap = fig.querySelector('figcaption');
+    if(!img) return;
+    fig.addEventListener('click', () => openLightbox(img.src, cap ? cap.textContent : '', 'img'));
+  });
+
+  // Make video figures clickable
+  document.querySelectorAll('.vid-figure').forEach(fig => {
+    const videoId = fig.dataset.videoid;
+    const cap = fig.querySelector('figcaption');
+    const frame = fig.querySelector('.vid-frame');
+    if(!videoId || !frame) return;
+    frame.style.cursor = 'pointer';
+    frame.addEventListener('click', () => openLightbox(videoId, cap ? cap.textContent : '', 'video'));
+  });
+</script>
 
 </body>
 </html>
