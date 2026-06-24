@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quentin Granvaud — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF6F0;
+    --sand:#EDE4D9;
+    --ink:#2E2B27;
+    --terracotta:#C97A5A;
+    --sage:#8A9B7E;
+    --grey:#9C958B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.65;
+    font-weight:300;
+  }
+  ::selection{background:var(--terracotta); color:var(--cream);}
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 6vw;
+    z-index:100;
+    backdrop-filter:blur(10px);
+    background:rgba(250,246,240,0.75);
+    border-bottom:1px solid rgba(46,43,39,0.07);
+  }
+  nav .logo{
+    font-family:'Fraunces', serif;
+    font-weight:600; font-size:1.25rem; letter-spacing:.01em;
+  }
+  nav .logo span{color:var(--terracotta); font-style:italic;}
+  nav ul{display:flex; gap:30px; list-style:none;}
+  nav a{
+    font-family:'Space Mono', monospace;
+    font-size:.78rem; text-decoration:none; color:var(--grey);
+    letter-spacing:.04em;
+    transition:color .2s;
+    position:relative;
+  }
+  nav a:hover, nav a:focus-visible{color:var(--terracotta);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:92vh;
+    display:flex; align-items:center;
+    padding:120px 6vw 60px;
+    position:relative;
+  }
+  .hero-inner{max-width:1280px; margin:0 auto; width:100%;}
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--sage); margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:''; width:30px; height:1px; background:var(--sage);
+  }
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.8rem, 7vw, 5.2rem);
+    line-height:1.05;
+    letter-spacing:-.01em;
+    margin-bottom:28px;
+    max-width:14ch;
+  }
+  .hero h1 em{
+    font-style:italic; color:var(--terracotta); font-weight:500;
+  }
+  .hero p.lead{
+    font-size:1.15rem; color:#5A554F; max-width:540px;
+    margin-bottom:40px; font-weight:300;
+  }
+  .hero .cta-row{display:flex; gap:16px; flex-wrap:wrap; align-items:center;}
+  .btn{
+    font-family:'Space Mono', monospace;
+    font-size:.82rem; letter-spacing:.03em;
+    padding:14px 28px; border-radius:100px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:all .25s ease;
+    border:1px solid var(--ink);
+  }
+  .btn-primary{background:var(--ink); color:var(--cream);}
+  .btn-primary:hover{background:var(--terracotta); border-color:var(--terracotta); color:var(--cream);}
+  .btn-ghost{border:1px solid var(--grey); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--terracotta); color:var(--terracotta);}
+
+  /* hero scribble underline */
+  .scribble{position:relative; display:inline-block;}
+  .scribble svg{
+    position:absolute; left:0; bottom:-10px; width:100%; height:14px;
+    overflow:visible;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:90px 6vw;}
+  .section-inner{max-width:1280px; margin:0 auto;}
+  .section-head{
+    margin-bottom:54px;
+  }
+  .section-head .sub{
+    font-family:'Space Mono', monospace; font-size:.78rem;
+    color:var(--terracotta); letter-spacing:.1em; text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(1.8rem, 3.6vw, 2.7rem);
+    max-width:18ch;
+  }
+  .section-head p{
+    margin-top:14px; color:#5A554F; max-width:60ch; font-size:1.02rem;
+  }
+
+  /* ---------- A PROPOS ---------- */
+  #apropos{background:var(--sand);}
+  .apropos-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:60px; align-items:start;
+  }
+  .apropos-text p{font-size:1.05rem; color:#4A453F; max-width:600px;}
+  .apropos-text p + p{margin-top:18px;}
+  .langues{
+    display:flex; flex-direction:column; gap:22px;
+    background:var(--cream); padding:32px; border-radius:18px;
+  }
+  .langues h3{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.1rem; margin-bottom:6px;
+  }
+  .langue-bar{font-family:'Space Mono', monospace; font-size:.85rem;}
+  .langue-bar .label{display:flex; justify-content:space-between; margin-bottom:6px;}
+  .bar-track{height:6px; background:var(--sand); border-radius:3px; overflow:hidden;}
+  .bar-fill{height:100%; background:var(--terracotta); border-radius:3px;}
+  .loisirs{margin-top:6px;}
+  .loisirs .label-only{
+    font-family:'Space Mono', monospace; font-size:.78rem; color:var(--grey);
+    text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px;
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:'Space Mono', monospace; font-size:.78rem;
+    border:1px solid var(--grey); border-radius:100px;
+    padding:6px 14px; color:#4A453F;
+  }
+
+  /* ---------- EXPERIENCES ---------- */
+  #experiences{background:var(--cream);}
+  .timeline{display:flex; flex-direction:column; gap:0;}
+  .job{
+    display:grid; grid-template-columns:160px 1fr; gap:32px;
+    padding:36px 0; border-top:1px solid rgba(46,43,39,0.1);
+  }
+  .job:first-child{border-top:none;}
+  .job-date{
+    font-family:'Space Mono', monospace; font-size:.85rem; color:var(--terracotta);
+    padding-top:4px;
+  }
+  .job h3{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:1.3rem; margin-bottom:4px;
+  }
+  .job .org{
+    color:var(--grey); font-size:.92rem; margin-bottom:16px; font-weight:300;
+  }
+  .job ul{list-style:none; display:grid; gap:10px; max-width:760px;}
+  .job li{
+    font-size:.96rem; color:#4A453F;
+    padding-left:22px; position:relative;
+  }
+  .job li::before{
+    content:'·'; position:absolute; left:4px; top:0; color:var(--sage);
+    font-size:1.6rem; line-height:1;
+  }
+  .job li strong{font-weight:500; color:var(--ink);}
+  .job-gallery{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+    gap:12px; margin-top:24px; max-width:760px;
+  }
+  .job-gallery figure{
+    margin:0; background:var(--sand); border:1px solid rgba(46,43,39,.08);
+    border-radius:12px; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .job-gallery .img-frame{
+    aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;
+    background:var(--cream); padding:8px;
+  }
+  .job-gallery img{
+    max-width:100%; max-height:100%;
+    object-fit:contain;
+  }
+  .job-gallery figcaption{
+    font-family:'Space Mono', monospace; font-size:.7rem;
+    color:var(--grey); padding:10px 12px; line-height:1.4;
+    border-top:1px solid rgba(46,43,39,.06);
+  }
+
+  /* ---------- PROJETS ---------- */
+  #projets{background:var(--sand);}
+  .project{
+    display:grid; grid-template-columns:1fr 1fr; gap:50px;
+    padding:56px 0; border-top:1px solid rgba(46,43,39,0.1);
+    align-items:start;
+  }
+  .project:first-child{border-top:none;}
+  .project:nth-child(even) .project-gallery{order:2;}
+  .project-meta{
+    font-family:'Space Mono', monospace; font-size:.78rem;
+    color:var(--sage); letter-spacing:.06em; margin-bottom:10px;
+  }
+  .project-text h3{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:1.5rem; margin-bottom:16px; color:var(--ink);
+  }
+  .project-text h4{
+    font-family:'Space Mono', monospace; font-weight:400;
+    font-size:.8rem; margin:20px 0 10px; color:var(--terracotta);
+    text-transform:uppercase; letter-spacing:.06em;
+  }
+  .project-text ul{list-style:none; display:grid; gap:9px;}
+  .project-text li{
+    font-size:.95rem; padding-left:20px; position:relative; color:#4A453F;
+  }
+  .project-text li::before{
+    content:'·'; position:absolute; left:4px; top:0; color:var(--sage);
+    font-size:1.5rem; line-height:1;
+  }
+  .project-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+  .project-gallery{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+  }
+  .project-gallery figure{
+    margin:0; background:var(--cream); border:1px solid rgba(46,43,39,.08);
+    border-radius:12px; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .project-gallery .img-frame{
+    aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;
+    background:var(--cream); padding:8px;
+  }
+  .project-gallery .wide .img-frame{aspect-ratio:16/8;}
+  .project-gallery img{
+    max-width:100%; max-height:100%;
+    object-fit:contain;
+  }
+  .project-gallery figcaption{
+    font-family:'Space Mono', monospace; font-size:.7rem;
+    color:var(--grey); padding:10px 12px; line-height:1.4;
+    border-top:1px solid rgba(46,43,39,.06);
+  }
+  .project-gallery .wide{grid-column:span 2;}
+  @media (max-width: 860px){
+    .project{grid-template-columns:1fr; gap:28px;}
+    .project:nth-child(even) .project-gallery{order:0;}
+  }
+
+  /* ---------- COMPETENCES ---------- */
+  #competences{background:var(--cream);}
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:18px;
+  }
+  .skill-card{
+    background:var(--sand); padding:32px 28px; border-radius:18px;
+    transition:transform .25s, background .25s;
+  }
+  .skill-card:hover{transform:translateY(-4px); background:#E4D8C9;}
+  .skill-card h3{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:1.1rem; margin-bottom:12px;
+  }
+  .skill-card p{
+    font-size:.92rem; color:#4A453F; font-weight:300;
+  }
+  .skill-card .tools{
+    margin-top:18px; display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .pill{
+    font-family:'Space Mono', monospace; font-size:.72rem;
+    border:1px solid var(--grey); border-radius:100px;
+    padding:5px 13px; color:#4A453F; background:var(--cream);
+  }
+
+  /* ---------- FORMATION ---------- */
+  #formation{background:var(--sand);}
+  .edu-list{display:flex; flex-direction:column; gap:0; max-width:780px;}
+  .edu-item{
+    display:grid; grid-template-columns:130px 1fr; gap:24px;
+    padding:26px 0; border-top:1px solid rgba(46,43,39,.1);
+  }
+  .edu-item:first-child{border-top:none;}
+  .edu-item .date{
+    font-family:'Space Mono', monospace; color:var(--terracotta); font-size:.85rem;
+  }
+  .edu-item h3{font-family:'Fraunces', serif; font-weight:600; font-size:1.12rem; margin-bottom:4px;}
+  .edu-item .school{color:var(--grey); font-size:.9rem; font-weight:300;}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  #contact{background:var(--cream); text-align:left;}
+  .contact-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:60px; align-items:end;
+  }
+  #contact h2{
+    font-family:'Fraunces', serif; font-weight:600;
+    font-size:clamp(2rem, 5vw, 3.2rem); line-height:1.15; margin-bottom:22px;
+    max-width:14ch;
+  }
+  #contact h2 em{font-style:italic; color:var(--terracotta);}
+  #contact p.note{color:#5A554F; max-width:480px; margin-bottom:8px;}
+  .contact-links{display:flex; flex-direction:column; gap:16px;}
+  .contact-link{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 24px; border-radius:14px; background:var(--sand);
+    text-decoration:none; font-family:'Space Mono', monospace; font-size:.9rem;
+    transition:background .2s;
+  }
+  .contact-link span:first-child{color:var(--grey); text-transform:uppercase; font-size:.7rem; letter-spacing:.1em;}
+  .contact-link:hover{background:#E4D8C9; color:var(--terracotta);}
+  footer{
+    text-align:center; padding:30px 6vw; font-family:'Space Mono', monospace;
+    font-size:.75rem; color:var(--grey); border-top:1px solid rgba(46,43,39,.08);
+    background:var(--cream);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px){
+    .apropos-grid{grid-template-columns:1fr; gap:36px;}
+    .contact-grid{grid-template-columns:1fr; gap:36px;}
+    .job{grid-template-columns:1fr; gap:8px;}
+    .edu-item{grid-template-columns:1fr; gap:4px;}
+    nav ul{gap:16px;}
+    nav ul li:nth-child(2),
+    nav ul li:nth-child(4){display:none;}
+    section{padding:64px 6vw;}
+  }
+  @media (max-width: 520px){
+    nav ul li:nth-child(5){display:none;}
+  }
+
+  :focus-visible{outline:2px solid var(--terracotta); outline-offset:3px;}
+
+  /* ---------- LIGHTBOX ---------- */
+  .lb-overlay{
+    display:none; position:fixed; inset:0; z-index:1000;
+    background:rgba(46,43,39,.92); backdrop-filter:blur(6px);
+    align-items:center; justify-content:center; padding:24px;
+    cursor:zoom-out;
+  }
+  .lb-overlay.open{display:flex;}
+  .lb-content{
+    max-width:90vw; max-height:90vh;
+    display:flex; flex-direction:column; align-items:center; gap:14px;
+    cursor:default;
+  }
+  .lb-content img{
+    max-width:90vw; max-height:80vh;
+    object-fit:contain; border-radius:8px;
+  }
+  .lb-content iframe{
+    width:min(860px, 90vw); height:min(480px, 50vw);
+    border-radius:8px; border:none;
+  }
+  .lb-caption{
+    font-family:'Space Mono', monospace; font-size:.78rem;
+    color:rgba(255,255,255,.65); text-align:center;
+  }
+  .lb-close{
+    position:fixed; top:20px; right:28px;
+    font-family:'Space Mono', monospace; font-size:1.5rem;
+    color:rgba(255,255,255,.7); cursor:pointer; line-height:1;
+    background:none; border:none; padding:4px;
+    transition:color .2s;
+  }
+  .lb-close:hover{color:#fff;}
+
+  /* clickable images/videos */
+  .project-gallery figure,
+  .job-gallery figure{cursor:zoom-in;}
+
+  /* video embed figure */
+  .vid-figure{
+    grid-column:span 2;
+    margin:0; background:var(--cream); border:1px solid rgba(46,43,39,.08);
+    border-radius:12px; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .vid-frame{
+    position:relative; width:100%; aspect-ratio:16/9;
+    background:#000; border-radius:12px 12px 0 0; overflow:hidden;
+  }
+  .vid-frame iframe{width:100%; height:100%; border:none;}
+  .vid-figure figcaption{
+    font-family:'Space Mono', monospace; font-size:.7rem;
+    color:var(--grey); padding:10px 12px; line-height:1.4;
+    border-top:1px solid rgba(46,43,39,.06);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Quentin<span>.</span></div>
+  <ul>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#experiences">Expériences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Quentin Granvaud · Tours / Blois</div>
+    <h1>Bienvenue sur mon <em>portfolio</em><span class="scribble"></span>.</h1>
+    <div class="cta-row" style="margin-top:40px;">
+      <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+      <a href="#experiences" class="btn btn-ghost">Mon parcours</a>
+    </div>
+  </div>
+</header>
+
+<!-- A PROPOS -->
+<section id="apropos">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="sub">À propos</div>
+      <h2>Curieux, rigoureux et autonome</h2>
+    </div>
+    <div class="apropos-grid">
+      <div class="apropos-text">
+        <p>
+          J'aborde les défis techniques avec méthode et esprit d'initiative. Mon parcours m'a appris
+          à être aussi performant en recherche autonome qu'au sein de projets d'équipe, où j'apprécie
+          la collaboration et l'échange.
+        </p>
+        <p>
+          Ce portfolio rassemble quelques projets réalisés durant mon BUT Science et Génie des
+          Matériaux, ainsi que mes expériences en entreprise.
+        </p>
+        <div class="loisirs" style="margin-top:24px;">
+          <div class="label-only">Intérêts &amp; loisirs</div>
+          <div class="tag-row">
+            <span class="tag">Course à pied</span>
+            <span class="tag">Football</span>
+            <span class="tag">Voyages</span>
+            <span class="tag">Musique</span>
+          </div>
+        </div>
+      </div>
+      <div class="langues">
+        <h3>Langues</h3>
+        <div class="langue-bar">
+          <div class="label"><span>Anglais</span><span>B1</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:55%"></div></div>
+        </div>
+        <div class="langue-bar">
+          <div class="label"><span>Espagnol</span><span>A2</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:35%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCES -->
+<section id="experiences">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="sub">Expériences</div>
+      <h2>Du laboratoire au plancher d'usine</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="job">
+        <div class="job-date">Mars – Juin 2026</div>
+        <div>
+          <h3>Mise en place de gravure plasma</h3>
+          <div class="org">Stage 3ᵉ année BUT · STMicroelectronics — Tours</div>
+          <ul>
+            <li><strong>Plans d'expériences (DOE) :</strong> élaboration et interprétation de plans complets pour optimiser la vitesse de gravure et contrôler la couche de passivation.</li>
+            <li><strong>Résolution de problématiques matériaux :</strong> étude des mécanismes de corrosion de l'aluminium et impact d'un nouveau gaz sur l'anisotropie des profils.</li>
+            <li><strong>Spectroscopie de diagnostic :</strong> suivi en temps réel des radicaux de fluor libres dans le plasma par spectroscopie d'émission optique.</li>
+            <li><strong>Livrables techniques :</strong> rédaction d'une procédure d'utilisation d'équipement et validation terrain auprès d'opérateurs non formés.</li>
+          </ul>
+          <div class="job-gallery">
+            <figure>
+              <div class="img-frame"><img src="stmicro-doe.png" alt="Surface de réponse 3D issue d'un plan d'expériences DOE"></div>
+              <figcaption>Surface de réponse — plan d'expériences (DOE)</figcaption>
+            </figure>
+            <figure>
+              <div class="img-frame"><img src="stmicro-corrosion.png" alt="Image MEB d'un profil gravé montrant un défaut de corrosion"></div>
+              <figcaption>Observation MEB — analyse de corrosion</figcaption>
+            </figure>
+            <figure>
+              <div class="img-frame"><img src="stmicro-procedure.png" alt="Extrait de la procédure de plasma de nettoyage rédigée"></div>
+              <figcaption>Extrait de la procédure rédigée</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-date">Avril – Juin 2025</div>
+        <div>
+          <h3>Déploiement des outils du Lean</h3>
+          <div class="org">Stage 2ᵉ année BUT · Knauf Ceiling Solutions — Dreux</div>
+          <ul>
+            <li><strong>Chantier SMED :</strong> analyse vidéo exhaustive des changements de série sur presse industrielle, identification des variabilités d'outillage et réorganisation complète des étapes de réglage.</li>
+            <li><strong>Gestion de la qualité :</strong> création et déploiement d'une défauthèque physique et digitalisée basée sur l'analyse des causes racines (ex. marques de capping) pour l'aide au diagnostic opérateur.</li>
+            <li><strong>Standardisation :</strong> rédaction et mise à jour de standards de contrôle qualité et de procédures de changement de produit sur une ligne de production.</li>
+          </ul>
+          <div class="job-gallery">
+            <figure>
+              <div class="img-frame"><img src="knauf-standardisation.png" alt="Extrait du standard de démontage du jeu de galets rédigé pour la ligne de production"></div>
+              <figcaption>Standard de démontage — jeu de galets</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="sub">Mes projets</div>
+      <h2>De l'idée au prototype</h2>
+      <p>Trois projets menés durant mon BUT, du cahier des charges au prototype fonctionnel.</p>
+    </div>
+
+    <div class="project">
+      <div class="project-text">
+        <div class="project-meta">2 personnes · 2023 / 2024</div>
+        <h3>Conception et réalisation d'un tapis rebondissant</h3>
+        <h4>Cahier des charges</h4>
+        <ul>
+          <li>Surface du tapis : 300 × 300 mm²</li>
+          <li>Épaisseur du tapis égale à 25 mm</li>
+          <li>Le tapis permet de faire rebondir une balle de tennis</li>
+          <li>Réalisation avec une mise en œuvre facile</li>
+        </ul>
+        <h4>Conception</h4>
+        <ul>
+          <li>Récupération d'une planche en bois 300 × 300 mm</li>
+          <li>Découpe d'une tôle en acier</li>
+          <li>Vissage de la tôle sur la planche en bois</li>
+        </ul>
+        <div class="project-tags">
+          <span class="pill">Cahier des charges</span>
+          <span class="pill">Travail d'équipe</span>
+          <span class="pill">Gestion de projet</span>
+        </div>
+      </div>
+      <div class="project-gallery">
+        <figure>
+          <div class="img-frame"><img src="tapis-planche.jpg" alt="Planche en bois 300x300 mm récupérée pour le tapis"></div>
+          <figcaption>Planche en bois 300×300 mm</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="tapis-tole.jpg" alt="Tôle en acier découpée pour le tapis"></div>
+          <figcaption>Découpe de la tôle en acier</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="tapis-visse.jpg" alt="Tôle vissée sur la planche en bois"></div>
+          <figcaption>Vissage de la tôle sur la planche</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="tapis-rebond.jpg" alt="Test de rebond d'une balle de tennis sur le tapis"></div>
+          <figcaption>Test final : rebond d'une balle de tennis</figcaption>
+        </figure>
+        <figure class="vid-figure">
+          <div class="vid-frame">
+            <video src="tapis-video.mp4" muted loop playsinline
+              controls style="width:100%;height:100%;object-fit:contain;background:#000;"></video>
+          </div>
+          <figcaption>▶ Vidéo — Test de rebond de la balle de tennis</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-text">
+        <div class="project-meta">2 personnes · 2023 / 2024</div>
+        <h3>Conception et réalisation d'un socle</h3>
+        <h4>Cahier des charges</h4>
+        <ul>
+          <li>Surface projetée au sol : entre 600 et 900 mm²</li>
+          <li>Hauteur de 550 mm (± 10 mm)</li>
+          <li>Poids du socle inférieur à 2 kg</li>
+          <li>Socle capable de supporter une charge de 2 kg</li>
+        </ul>
+        <h4>Choix des matériaux</h4>
+        <ul>
+          <li>Matériaux légers à bonne résistance : bois tendre et PVC</li>
+          <li>Sélection guidée par une cartographie résistance / masse volumique (Granta EduPack)</li>
+        </ul>
+        <h4>Résultat</h4>
+        <ul>
+          <li>Socle supportant une PS5 (4,5 kg)</li>
+        </ul>
+        <div class="project-tags">
+          <span class="pill">Autodesk Inventor</span>
+          <span class="pill">Granta EduPack</span>
+          <span class="pill">Cahier des charges</span>
+          <span class="pill">Travail d'équipe</span>
+        </div>
+      </div>
+      <div class="project-gallery">
+        <figure>
+          <div class="img-frame"><img src="socle-edupack.png" alt="Carte de sélection de matériaux Granta EduPack résistance vs masse volumique"></div>
+          <figcaption>Sélection des matériaux — Granta EduPack</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="socle-plan.png" alt="Plan technique du socle réalisé sous Inventor"></div>
+          <figcaption>Mise en plan du socle — Inventor</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="socle-decoupe-pvc.jpg" alt="Découpe des tubes PVC"></div>
+          <figcaption>Découpe des tubes PVC</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="socle-decoupe-bois.jpg" alt="Découpe des planches en bois"></div>
+          <figcaption>Découpe des planches en bois</figcaption>
+        </figure>
+        <figure class="wide">
+          <div class="img-frame"><img src="socle-ps5.jpg" alt="Socle terminé supportant une console PS5"></div>
+          <figcaption>Socle terminé, supportant une PS5 (4,5 kg)</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-text">
+        <div class="project-meta">2 personnes · 2024 / 2025</div>
+        <h3>Recherche de paramètres pour imprimante 3D</h3>
+        <h4>Objectif</h4>
+        <ul>
+          <li>Trouver les paramètres d'impression de différents filaments pour l'imprimante 3D Pro2 de chez Raise</li>
+        </ul>
+        <h4>Cahier des charges</h4>
+        <ul>
+          <li>Paramètres d'impression de deux filaments TPU différents, en multi-matériaux</li>
+          <li>Impression de qualité</li>
+          <li>Autonomie de l'impression</li>
+        </ul>
+        <h4>Tests menés</h4>
+        <ul>
+          <li>Test de température d'extrusion</li>
+          <li>Test de rétractation</li>
+          <li>Mise en place d'un système de purge</li>
+          <li>Impression multi-matériaux : porte-clés en PLA (rouge) et TPU (noir et jaune)</li>
+        </ul>
+        <div class="project-tags">
+          <span class="pill">Autodesk Inventor</span>
+          <span class="pill">IdeaMaker</span>
+          <span class="pill">Développement produit</span>
+          <span class="pill">Travail d'équipe</span>
+        </div>
+      </div>
+      <div class="project-gallery">
+        <figure class="wide">
+          <div class="img-frame"><img src="impr3d-test-temp.jpg" alt="Echantillons de test de température d'extrusion"></div>
+          <figcaption>Test de température d'extrusion</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="impr3d-test-retract1.jpg" alt="Test de rétractation, filament jaune"></div>
+          <figcaption>Test de rétractation — TPU jaune</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="impr3d-test-retract2.jpg" alt="Test de rétractation, filament noir"></div>
+          <figcaption>Test de rétractation — TPU noir</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="impr3d-plan.png" alt="Plan technique du porte-clés sous Inventor"></div>
+          <figcaption>Plan du porte-clés — Inventor</figcaption>
+        </figure>
+        <figure>
+          <div class="img-frame"><img src="impr3d-portecles.jpg" alt="Porte-clés finis en PLA rouge et TPU noir/jaune"></div>
+          <figcaption>Porte-clés finis — PLA &amp; TPU</figcaption>
+        </figure>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<section id="competences">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="sub">Compétences</div>
+      <h2>Ce que je sais faire</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Conception</h3>
+        <p>Respecter un cahier des charges et utiliser des logiciels dédiés (Inventor, Granta EduPack) pour concevoir et dimensionner.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Caractérisation</h3>
+        <p>Réaliser des essais avec des méthodes adaptées (MEB, spectroscope optique, ellipsométrie), interpréter les résultats et rédiger des rapports.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Mise en œuvre des matériaux</h3>
+        <p>Comprendre l'incidence du procédé sur les propriétés, respecter les normes et contraintes HSE, et réaliser un produit fonctionnel avec un procédé (métallurgie, fabrication additive, gravure plasma).</p>
+      </div>
+      <div class="skill-card">
+        <h3>Éco-conception</h3>
+        <p>Adopter une démarche globale Produit–Procédé–Matériau et choisir des matériaux éco-responsables.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Méthodologie R&amp;D</h3>
+        <p>Plans d'expérience (DOE), traitement et interprétation de données.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Lean Manufacturing</h3>
+        <p>Chantier SMED, démarches Kaizen, management visuel.</p>
+      </div>
+      <div class="skill-card" style="grid-column:span 2;">
+        <h3>Outils informatiques</h3>
+        <p>Logiciels et environnements utilisés au quotidien pour la conception, l'expérimentation et le reporting.</p>
+        <div class="tools">
+          <span class="pill">Inventor (CAO/DAO)</span>
+          <span class="pill">Granta EduPack</span>
+          <span class="pill">Design Expert</span>
+          <span class="pill">IdeaMaker</span>
+          <span class="pill">Excel</span>
+          <span class="pill">PowerPoint</span>
+          <span class="pill">Word</span>
+          <span class="pill">Teams</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="sub">Formation</div>
+      <h2>Parcours académique</h2>
+    </div>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="date">2023 – 2026</div>
+        <div>
+          <h3>BUT Science et Génie des Matériaux</h3>
+          <div class="school">IUT de Blois</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="date">2023</div>
+        <div>
+          <h3>Baccalauréat Général — Mention Assez Bien</h3>
+          <div class="school">Spécialités : Mathématiques et Physique-Chimie</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <h2>N'hésitez pas à me <em>contacter</em></h2>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:quentingranvaud@gmail.com">
+          <span>Email</span><span>quentingranvaud@gmail.com</span>
+        </a>
+        <a class="contact-link" href="tel:+33618460496">
+          <span>Téléphone</span><span>06 18 46 04 96</span>
+        </a>
+        <div class="contact-link" style="cursor:default;">
+          <span>Localisation</span><span>Tours / Blois</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Quentin Granvaud — Portfolio · Science et Génie des Matériaux
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lb-close" aria-label="Fermer">&times;</button>
+  <div class="lb-content" id="lb-content"></div>
+</div>
+
+<script>
+  const overlay = document.getElementById('lightbox');
+  const content = document.getElementById('lb-content');
+  const closeBtn = document.getElementById('lb-close');
+
+  function openLightbox(src, caption, type){
+    content.innerHTML = '';
+    if(type === 'img'){
+      const img = document.createElement('img');
+      img.src = src; img.alt = caption;
+      content.appendChild(img);
+    } else if(type === 'video'){
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + src + '?autoplay=1';
+      iframe.allow = 'autoplay; fullscreen';
+      content.appendChild(iframe);
+    }
+    if(caption){
+      const cap = document.createElement('div');
+      cap.className = 'lb-caption';
+      cap.textContent = caption;
+      content.appendChild(cap);
+    }
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(){
+    overlay.classList.remove('open');
+    content.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+  // Make all gallery images clickable
+  document.querySelectorAll('.project-gallery figure:not(.vid-figure), .job-gallery figure').forEach(fig => {
+    const img = fig.querySelector('img');
+    const cap = fig.querySelector('figcaption');
+    if(!img) return;
+    fig.addEventListener('click', () => openLightbox(img.src, cap ? cap.textContent : '', 'img'));
+  });
+
+  // Make video figures clickable
+  document.querySelectorAll('.vid-figure').forEach(fig => {
+    const videoId = fig.dataset.videoid;
+    const cap = fig.querySelector('figcaption');
+    const frame = fig.querySelector('.vid-frame');
+    if(!videoId || !frame) return;
+    frame.style.cursor = 'pointer';
+    frame.addEventListener('click', () => openLightbox(videoId, cap ? cap.textContent : '', 'video'));
+  });
+</script>
+
+</body>
+</html>
